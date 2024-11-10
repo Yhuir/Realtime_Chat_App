@@ -10,6 +10,44 @@ public class Message implements Serializable {
     private String sendTime;
     private String msgType;
 
+    private byte[] fileByte;
+    private int fileLen=0;
+    private String dest;
+
+    public byte[] getFileByte() {
+        return fileByte;
+    }
+
+    public void setFileByte(byte[] fileByte) {
+        this.fileByte = fileByte;
+    }
+
+    public int getFileLen() {
+        return fileLen;
+    }
+
+    public void setFileLen(int fileLen) {
+        this.fileLen = fileLen;
+    }
+
+    public String getSrc() {
+        return src;
+    }
+
+    public void setSrc(String src) {
+        this.src = src;
+    }
+
+    public String getDest() {
+        return dest;
+    }
+
+    public void setDest(String dest) {
+        this.dest = dest;
+    }
+
+    private  String src;
+
     public Message() {
         this.sender = sender;
         this.receiver = receiver;

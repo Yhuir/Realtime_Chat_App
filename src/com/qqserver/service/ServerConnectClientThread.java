@@ -76,6 +76,16 @@ public class ServerConnectClientThread extends Thread{
                         }
                     }
 
+                } else if (msg.getMsgType().equals(MessageType.MESSAGE_FILE_MESS)) {
+                    String receiveId = msg.getReceiver();
+
+                    ServerConnectClientThread scct = ManageClientThreads.getServerConnectClientThread(receiveId);
+
+                    ObjectOutputStream oos = new ObjectOutputStream(scct.socket.getOutputStream());
+
+                    oos.writeObject(msg);
+
+
                 } else {
                     System.out.println("Other Msg Type");
                 }
