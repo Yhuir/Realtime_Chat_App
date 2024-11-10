@@ -20,6 +20,22 @@ public class ServerConnectClientThread extends Thread{
         this.userId = userId;
     }
 
+    public String getUserId() {
+        return userId;
+    }
+
+    public void setUserId(String userId) {
+        this.userId = userId;
+    }
+
+    public Socket getSocket() {
+        return socket;
+    }
+
+    public void setSocket(Socket socket) {
+        this.socket = socket;
+    }
+
     @Override
     public void run() {
         while (true) {

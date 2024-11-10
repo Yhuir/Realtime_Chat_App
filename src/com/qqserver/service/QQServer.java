@@ -9,6 +9,7 @@ import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.net.ServerSocket;
 import java.net.Socket;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.concurrent.ConcurrentHashMap;
 
@@ -17,6 +18,7 @@ public class QQServer {
     private ServerSocket ss = null;
 
     private static ConcurrentHashMap<String, User> validUser = new ConcurrentHashMap<>();
+    private static ConcurrentHashMap<String, ArrayList<Message>> offlineUser = new ConcurrentHashMap<>();
 
     static {
         validUser.put("100", new User("100", "123456"));
@@ -50,6 +52,8 @@ public class QQServer {
             System.out.println("Listen on 9999");
             ss = new ServerSocket(9999);
 
+            new Thread(new SendNewsToAllService()).start();
+
             while (true) {
                 Socket socket = ss.accept();
 
@@ -64,7 +68,7 @@ public class QQServer {
                 Message message = new Message();
 
                 if (checkUser(u.getUserId(), u.getPasswd())) {
-                    System.out.println("User: " + u.getUserId() + " Logged in");
+                    System.out.println("\nUser: " + u.getUserId() + " Logged in");
 
                     message.setMsgType(MessageType.MESSAGE_LOGIN_SUCCEED);
                     oos.writeObject(message);

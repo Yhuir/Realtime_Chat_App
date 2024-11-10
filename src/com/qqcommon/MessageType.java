@@ -9,4 +9,6 @@ public interface MessageType {
     String MESSAGE_CLIENT_EXIT = "6";
     String MESSAGE_All_MESS = "7";
     String MESSAGE_FILE_MESS = "8";
+    String MESSAGE_NEWS = "9";
+
 }
