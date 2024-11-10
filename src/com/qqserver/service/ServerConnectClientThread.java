@@ -7,6 +7,8 @@ import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.net.Socket;
+import java.util.HashMap;
+import java.util.Iterator;
 
 public class ServerConnectClientThread extends Thread{
 
@@ -54,6 +56,25 @@ public class ServerConnectClientThread extends Thread{
                     ObjectOutputStream oos = new ObjectOutputStream(scct.socket.getOutputStream());
 
                     oos.writeObject(msg);
+
+                } else if (msg.getMsgType().equals(MessageType.MESSAGE_All_MESS)) {
+                    HashMap hm = ManageClientThreads.getHm();
+
+                    Iterator<String> iterator = hm.keySet().iterator();
+
+                    while (iterator.hasNext()) {
+                        String receiverId = iterator.next().toString();
+
+                        if (!receiverId.equals(msg.getSender())) {
+
+                            ServerConnectClientThread scct = ManageClientThreads.getServerConnectClientThread(receiverId);
+
+                            ObjectOutputStream oos = new ObjectOutputStream(scct.socket.getOutputStream());
+
+                            oos.writeObject(msg);
+
+                        }
+                    }
 
                 } else {
                     System.out.println("Other Msg Type");

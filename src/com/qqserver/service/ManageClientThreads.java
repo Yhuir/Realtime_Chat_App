@@ -8,6 +8,10 @@ public class ManageClientThreads {
     private static HashMap<String, ServerConnectClientThread> hm =
             new HashMap<>();
 
+    public static HashMap<String, ServerConnectClientThread> getHm() {
+        return hm;
+    }
+
     public static void addClientThread(String userId, ServerConnectClientThread serverConnectClientThread) {
         hm.put(userId, serverConnectClientThread);
     }
